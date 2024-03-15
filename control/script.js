@@ -72,4 +72,19 @@ console.log("Ellipse object:", ellipse);
 
 const area = SimpleEllipse.calculateArea(ellipse.majorRadius, ellipse.minorRadius);
 //
+function SubGenerator(num) {
+    return function (inputNum) {
+        return inputNum - num;
+    };
+}
+
+const subtract5 = SubGenerator(5);
+
+console.log(subtract5(10)); 
+console.log(subtract5(20)); 
+
+const subtract8 = SubGenerator(8);
+
+console.log(subtract8(15)); 
+console.log(subtract8(25)); 
 
