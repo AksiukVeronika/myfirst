@@ -34,7 +34,7 @@
           div.style.backgroundColor = "blue";
            div.style.position = "relative";
             div.style.width = "30px";
-           div.style.height = ${document.getElementById("height").value}px`;
+           div.style.height = `${document.getElementById("height").value}px`;
           document.body.appendChild(div);
         createButtons();
     }
