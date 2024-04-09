@@ -12,6 +12,7 @@
     }
 
     let array = generateArray(20);
+    array.sort();
         document.getElementById("container").textContent = array;
            document.getElementById("generate-button").addEventListener("click", (event) => {
         console.log();
