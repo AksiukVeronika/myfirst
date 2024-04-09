@@ -50,13 +50,13 @@
             let leftVal = document.getElementById("select-container").style.left;
               leftVal = leftVal.replace("px", "");
               leftVal = Number(leftVal) - 20;
-            document.getElementById("select-container").style.left = ${leftVal}px;
+            document.getElementById("select-container").style.left = `${leftVal}px`;
         });
         buttonRight.addEventListener("click", (event) => {
             let rightVal = document.getElementById("select-container").style.left;
               rightVal = rightVal.replace("px", "");
                rightVal = Number(rightVal) + 20;
-            document.getElementById("select-container").style.left = ${rightVal}px;
+            document.getElementById("select-container").style.left = `${rightVal}px`;
         });
 
         document.body.appendChild(buttonLeft);
