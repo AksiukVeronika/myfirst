@@ -22,8 +22,8 @@
             createContainer();
         } else {
             document.getElementById("select-container").remove();
-              document.getElementById("left").remove();
-                document.getElementById("right").remove();
+              document.getElementById("В ліво").remove();
+                document.getElementById("В право").remove();
             createContainer();
         }
     });
@@ -40,10 +40,10 @@
     function createButtons() {
         const buttonLeft = document.createElement("button");
          const buttonRight = document.createElement("button");
-          buttonLeft.id = "left";
-         buttonRight.id = "right";
-        buttonLeft.textContent = "left";
-        buttonRight.textContent = "right";
+          buttonLeft.id = "В ліво";
+         buttonRight.id = "В право";
+        buttonLeft.textContent = "В ліво";
+        buttonRight.textContent = "В право";
 
         buttonLeft.addEventListener("click", (event) => {
             let leftVal = document.getElementById("select-container").style.left;
