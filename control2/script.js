@@ -15,7 +15,6 @@
     array.sort();
         document.getElementById("container").textContent = array;
            document.getElementById("generate-button").addEventListener("click", (event) => {
-        console.log();
         if (
             !document.getElementById("select-container") &&
               document.getElementById("height").value
