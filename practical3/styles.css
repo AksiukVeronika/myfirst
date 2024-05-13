@@ -1,1 +1,63 @@
-
+*{
+    font-family: 'Arial';
+  }
+  
+  h1{
+    text-align: center;
+  }
+  
+  .beer {
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-gap: 4%;
+    justify-content: center;
+    margin: 3%;
+  }
+  .fish {
+    border: #000 3px solid;
+    background-color: #999999;
+    display: grid;
+    justify-items: end;
+  }
+  .caption {
+    font-size: 20px;
+    font-weight: 600;
+    padding: 1% 2%;
+    border-bottom: #000 3px solid;
+    border-left: #000 3px solid;
+  }
+  .text {
+    padding: 3% 8%;
+    text-align: justify;
+  }
+  .fish-1 .caption{
+    background-color: #dc05fd;
+  }
+  
+  .fish-2 .caption{
+    background-color: #038eff;
+  }
+  
+  .fish-3 .caption{
+    background-color: #f30761;
+  }
+  
+  @media (max-width:992px){
+  
+    .beer {
+      grid-template-columns: 47% 47%;
+    }
+    .fish-3 {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+  }
+  
+  @media (max-width:768px){
+    .beer {
+      grid-template-columns: 100%;
+    }
+    .fish-3 {
+      grid-column-end: 2;
+    }
+  }
