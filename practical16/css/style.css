@@ -1720,7 +1720,7 @@ footer{
 }
 @media (max-width: 768px) {
     .golovnyj-telephone {
-        border: 1px solid black;
+        border: 5px solid indigo;
         margin-bottom: 15px;
     }
    
@@ -1741,8 +1741,6 @@ footer{
     }
     
     .golovnyj-telephone a {
-        display: block;
-        margin-top: 10px;
         color:black;
         font-size: 25px;
         font-weight: 800;
@@ -1763,7 +1761,7 @@ footer{
     align-items: center;
     flex-direction: column;
     text-align: center;
-    color: #6d0077;
+    color: indigo;
     font-family: "Comic Neue";
 }
 
@@ -1786,9 +1784,7 @@ footer{
 
 .vmistcatalog {
     position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 20px;
+    margin: 10px;
 }
 
 .vmistcatalog:hover {
