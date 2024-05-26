@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exam</title>
+    <style>
+        #result {
+            margin-top: 20px;
+        }
+
+        #info img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Контрольна робота 3</h1>
+    <h2>Аксюк Вероніка Ярославівна</h2>
+
+    <div>
+        <label for="op1">Operand 1:</label>
+        <input id="op1" type="text">
+        <label for="op2">Operand 2:</label>
+        <input id="op2" type="text">
+        <h3 id="result">Result:</h3>
+        <button data-operation="add">+</button>
+        <button data-operation="subtract">-</button>
+        <button data-operation="multiply">*</button>
+        <button data-operation="divide">/</button>
+        <button data-operation="log">log</button>
+        <button data-operation="sin">sin</button>
+        <button data-operation="tan">tan</button>
+    </div>
+
+    <div id="info"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
