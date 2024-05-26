@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
         subtract: () => handleBinaryOperation((a, b) => a - b),
         multiply: () => handleBinaryOperation((a, b) => a * b),
         divide: () => handleBinaryOperation((a, b) => b === 0 ? displayError('Cannot divide by 0') : a / b),
-        log: () => handleUnaryOperation((a) => a <= 0 ? displayError('Operand 1 must be greater than 0') : Math.log(a), 'log.json'),
-        sin: () => handleUnaryOperation((a) => Math.sin(degreesToRadians(a)), 'sin.json'),
-        tan: () => handleUnaryOperation((a) => Math.tan(degreesToRadians(a)), 'tan.json')
+        log: () => handleUnaryOperation((a) => a <= 0 ? displayError('Operand 1 must be greater than 0') : Math.log(a), 'Data/json/log.json'),
+        sin: () => handleUnaryOperation((a) => Math.sin(degreesToRadians(a)), 'Data/json/sin.json'),
+        tan: () => handleUnaryOperation((a) => Math.tan(degreesToRadians(a)), 'Data/json/tan.json')
     };
 
     document.querySelectorAll('button[data-operation]').forEach(button => {
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(fileName)
             .then(response => response.json())
             .then(data => {
-                infoDiv.innerHTML = `<h3>${data.name}</h3><p>${data.description}</p><img src="${data.image_name}" alt="${data.name}">`;
+                infoDiv.innerHTML = `<h3>${data.name}</h3><p>${data.description}</p><img src="Data/image/${data.image_name}" alt="${data.name}">`;
             })
             .catch(error => console.error('Error fetching info:', error));
     }
