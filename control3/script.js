@@ -1,51 +1,71 @@
-import "./jsons.js";
+document.addEventListener('DOMContentLoaded', () => {
+    const op1Input = document.getElementById('op1');
+    const op2Input = document.getElementById('op2');
+    const resultOutput = document.getElementById('result');
+    const infoDiv = document.getElementById('info');
 
-(function (global) {
-  let oper1 = document.getElementById("op1");
-  let oper2 = document.getElementById("op2");
+    const operationHandlers = {
+        add: () => handleBinaryOperation((a, b) => a + b),
+        subtract: () => handleBinaryOperation((a, b) => a - b),
+        multiply: () => handleBinaryOperation((a, b) => a * b),
+        divide: () => handleBinaryOperation((a, b) => b === 0 ? displayError('Cannot divide by 0') : a / b),
+        log: () => handleUnaryOperation((a) => a <= 0 ? displayError('Operand 1 must be greater than 0') : Math.log(a), 'log.json'),
+        sin: () => handleUnaryOperation((a) => Math.sin(degreesToRadians(a)), 'sin.json'),
+        tan: () => handleUnaryOperation((a) => Math.tan(degreesToRadians(a)), 'tan.json')
+    };
 
-  const getFunc = (AAA) => {
-    let oper1Value = parseFloat(oper1.value);
-    let oper2Value = parseFloat(oper2.value);
-    let result;
-    if (isNaN(oper1Value) || isNaN(oper2Value) || oper1.value.trim() === "") {
-      document.getElementById("res").textContent = "Result: please enter a valid number.";
-      document.getElementById("content").innerHTML = "";
-      return;
-    }
-    switch (AAA) {
-      case "add":
-        result = oper1Value + oper2Value;
-        break;
-      case "mul":
-        result = oper1Value * oper2Value;
-        break;
-      case "sub":
-        result = oper1Value - oper2Value;
-        break;
-      case "div":
-        result = oper1Value / oper2Value;
-        if (oper2Value === 0) {
-          result = "operand 2 is equal to 0";
+    document.querySelectorAll('button[data-operation]').forEach(button => {
+        button.addEventListener('click', () => {
+            const operation = button.getAttribute('data-operation');
+            operationHandlers[operation]();
+        });
+    });
+
+    function handleBinaryOperation(operation) {
+        const op1 = parseFloat(op1Input.value);
+        const op2 = parseFloat(op2Input.value);
+        if (isNaN(op1) || isNaN(op2)) {
+            displayError('Invalid input');
+            return;
         }
-        break;
+        const result = operation(op1, op2);
+        displayResult(result);
     }
 
-    document.getElementById("res").textContent = `Result: ${result}`;
-  };
-  document.getElementById("add-button").addEventListener("click", () => {
-    getFunc("add");
-  });
+    function handleUnaryOperation(operation, jsonFile) {
+        const op1 = parseFloat(op1Input.value);
+        if (isNaN(op1)) {
+            displayError('Invalid input');
+            return;
+        }
+        const result = operation(op1);
+        displayResult(result);
+        fetchInfo(jsonFile);
+    }
 
-  document.getElementById("sub-button").addEventListener("click", () => {
-    getFunc("sub");
-  });
+    function degreesToRadians(degrees) {
+        return degrees * Math.PI / 180;
+    }
 
-  document.getElementById("mul-button").addEventListener("click", () => {
-    getFunc("mul");
-  });
+    function displayResult(result) {
+        resultOutput.textContent = 'Result: ' + result;
+        infoDiv.innerHTML = '';
+    }
 
-  document.getElementById("div-button").addEventListener("click", () => {
-    getFunc("div");
-  });
-})(window);
+    function displayError(error) {
+        resultOutput.textContent = 'Error: ' + error;
+        infoDiv.innerHTML = '';
+        setTimeout(() => {
+            resultOutput.textContent = '';
+        }, 3000);
+    }
+
+    function fetchInfo(fileName) {
+        fetch(fileName)
+            .then(response => response.json())
+            .then(data => {
+                infoDiv.innerHTML = `<h3>${data.name}</h3><p>${data.description}</p><img src="${data.image_name}" alt="${data.name}">`;
+            })
+            .catch(error => console.error('Error fetching info:', error));
+    }
+});
