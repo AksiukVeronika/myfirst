@@ -4,44 +4,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultOutput = document.getElementById('result');
     const infoDiv = document.getElementById('info');
 
-    const operationHandlers = {
-        add: () => handleBinaryOperation((a, b) => a + b),
-        subtract: () => handleBinaryOperation((a, b) => a - b),
-        multiply: () => handleBinaryOperation((a, b) => a * b),
-        divide: () => handleBinaryOperation((a, b) => b === 0 ? displayError('Cannot divide by 0') : a / b),
-        log: () => handleUnaryOperation((a) => a <= 0 ? displayError('Operand 1 must be greater than 0') : Math.log(a), 'Data/json/log.json'),
-        sin: () => handleUnaryOperation((a) => Math.sin(degreesToRadians(a)), 'Data/json/sin.json'),
-        tan: () => handleUnaryOperation((a) => Math.tan(degreesToRadians(a)), 'Data/json/tan.json')
+    const operations = {
+        'add-button': (a, b) => a + b,
+        'sub-button': (a, b) => a - b,
+        'mul-button': (a, b) => a * b,
+        'div-button': (a, b) => b === 0 ? displayError('Cannot divide by 0') : a / b,
+        'log-button': (a) => {
+            if (a <= 0) {
+                displayError('Operand 1 must be greater than 0');
+                return;
+            }
+            fetchInfo('Data/json/log.json');
+            return Math.log(a);
+        },
+        'sin-button': (a) => {
+            fetchInfo('Data/json/sin.json');
+            return Math.sin(degreesToRadians(a));
+        },
+        'tan-button': (a) => {
+            fetchInfo('Data/json/tan.json');
+            return Math.tan(degreesToRadians(a));
+        }
     };
 
-    document.querySelectorAll('button[data-operation]').forEach(button => {
+    document.querySelectorAll('button').forEach(button => {
         button.addEventListener('click', () => {
-            const operation = button.getAttribute('data-operation');
-            operationHandlers[operation]();
+            const operation = operations[button.id];
+            if (!operation) return;
+
+            const op1 = parseFloat(op1Input.value);
+            const op2 = button.id === 'add-button' || button.id === 'sub-button' || button.id === 'mul-button' || button.id === 'div-button' ? parseFloat(op2Input.value) : null;
+
+            if (isNaN(op1) || (op2 !== null && isNaN(op2))) {
+                displayError('Invalid input');
+                return;
+            }
+
+            const result = op2 !== null ? operation(op1, op2) : operation(op1);
+            if (result !== undefined) {
+                displayResult(result);
+            }
         });
     });
-
-    function handleBinaryOperation(operation) {
-        const op1 = parseFloat(op1Input.value);
-        const op2 = parseFloat(op2Input.value);
-        if (isNaN(op1) || isNaN(op2)) {
-            displayError('Invalid input');
-            return;
-        }
-        const result = operation(op1, op2);
-        displayResult(result);
-    }
-
-    function handleUnaryOperation(operation, jsonFile) {
-        const op1 = parseFloat(op1Input.value);
-        if (isNaN(op1)) {
-            displayError('Invalid input');
-            return;
-        }
-        const result = operation(op1);
-        displayResult(result);
-        fetchInfo(jsonFile);
-    }
 
     function degreesToRadians(degrees) {
         return degrees * Math.PI / 180;
@@ -64,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(fileName)
             .then(response => response.json())
             .then(data => {
-                infoDiv.innerHTML = `<h3>${data.name}</h3><p>${data.description}</p><img src="Data/image/${data.image_name}" alt="${data.name}">`;
+                infoDiv.innerHTML = `<h3>${data.name}</h3><p>${data.description}</p><img src="Data/images/${data.image_name}" alt="${data.name}">`;
             })
             .catch(error => console.error('Error fetching info:', error));
     }
