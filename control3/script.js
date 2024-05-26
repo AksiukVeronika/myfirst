@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(fileName)
             .then(response => response.json())
             .then(data => {
-                infoDiv.innerHTML = `<h3>${data.name}</h3><p>${data.description}</p><img src="Data/images/${data.image_name}" alt="${data.name}">`;
+                infoDiv.innerHTML = `<h3>${data.name}</h3><p>${data.description}</p><img src="Data/image/${data.image_name}" alt="${data.name}">`;
             })
             .catch(error => console.error('Error fetching info:', error));
     }
